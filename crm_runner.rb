@@ -1,7 +1,7 @@
 require_relative "crm_database"
 db = Database.new
 id = 1000
-
+  TYPE_SPACE = "_"*10 + "\b"*10
   # Display the crm greeting
   puts " --------------------------------------------------------"
   puts " Welcome to the Jared's Customer Relationship Manager\n"
@@ -27,22 +27,22 @@ loop do
     # Insert those variables in a new contact and add them to the database
     id += 1
     puts "First name:"
-    # print "_" * 10 + "\b" * 10
+    print TYPE_SPACE
 
     firstname = gets.chomp.downcase
-    # print "_" * 10 + "\b" * 10
 
     puts "Last name: "
-    lastname = gets.chomp.downcase
-    # print "_" * 10 + "\b" * 10
+    print TYPE_SPACE
 
+    lastname = gets.chomp.downcase
     puts "Email: "
+    print TYPE_SPACE
     email = gets.chomp.downcase
-    # print "_" * 10 + "\b" * 10
+
 
     puts "Notes: "
+    print TYPE_SPACE
     notes = gets.chomp.downcase
-    # print "_" * 10 + "\b" * 10
 
     contact = {
       id: id,
@@ -71,8 +71,8 @@ loop do
     # Store the input in a variable and display the corresponding contact
     puts "What contact would do you want to search by?"
     puts 
-    attribute = gets.chomp.downcase
-    db.display_particular_contact(attribute)
+    search = gets.chomp.downcase
+    db.display_particular_contact(search)
 
   when "display attribute"
     # Prompt the user to search the database by one of the five attributes (E.g. "ID")

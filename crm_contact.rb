@@ -10,5 +10,6 @@ class Contact
   end
 
   def display_contact
+    "C"
   end
 end

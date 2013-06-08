@@ -21,11 +21,11 @@ class Database
     end
   end
 
-  def display_particular_contact(attribute)
-   @contacts_array.each do |array_element|
-      array_element.each do |key, value|
-        if value.to_s == attribute
-          puts @contacts_array
+  def display_particular_contact(search)
+   @contacts_array.each do |contact|
+      contact.each do |label, attribute|
+        if attribute == search
+           puts contact
         end
       end
     end
