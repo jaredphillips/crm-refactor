@@ -10,29 +10,50 @@ id = 1000
 
 loop do
   # Display the various options
-  puts "What would you like to do?"
-  puts "add"
-  puts "modify"
-  puts "display all"
-  puts "display contact"
-  puts "display attribute"
-  puts "delete"
-  puts "exit program\n"
+  puts
+  puts " What would you like to do?"
+  puts " add"
+  puts " modify"
+  puts " display all"
+  puts " display contact"
+  puts " display attribute"
+  puts " delete"
+  puts " exit program\n\n"
   input = gets.chomp
-  binding.pry
+  
   case input
   when "add"
     # Get the various contact attributes from the user and store them to variables
     # Insert those variables in a new contact and add them to the database
     id += 1
     puts "First name:"
+    # print "_" * 10 + "\b" * 10
+
     firstname = gets.chomp.downcase
+    # print "_" * 10 + "\b" * 10
+
     puts "Last name: "
     lastname = gets.chomp.downcase
+    # print "_" * 10 + "\b" * 10
+
     puts "Email: "
     email = gets.chomp.downcase
+    # print "_" * 10 + "\b" * 10
+
     puts "Notes: "
     notes = gets.chomp.downcase
+    # print "_" * 10 + "\b" * 10
+
+    contact = {
+      id: id,
+      firstname: firstname,
+      lastname: lastname,
+      email: email,
+      notes: notes
+    }
+    db.add(contact)
+    puts contact[:firstname] + " " + contact[:lastname] + " was successfully added."
+
   when "modify"
     # Prompt the user to select an attribute
     # Confirm that they have selected the correct attribute
@@ -40,12 +61,21 @@ loop do
     # Display that the contact was successfully updated to the user 
   when "display all"
     # Display all of the contacts in the database to the user
+    db.display_all_contacts
+
   when "display contact"
     # Prompt the user to select a contact by a specific contact attribute (E.g. Khurram)
     # Store the input in a variable and display the corresponding contact
+    puts "What contact would do you want to search by?"
+    puts 
+    attribute = gets.chomp.downcase
+    db.display_particular_contact(attribute)
+
   when "display attribute"
     # Prompt the user to search the database by one of the five attributes (E.g. "ID")
     # Display all of the the contacts by that attribute
+
+
   when "delete"
     # Prompt the user to select a contact by a specific contact attribute (E.g. Khurram)
     # Store the input in a variable and display a prompt to confirm "yes" or "no"
@@ -55,6 +85,13 @@ loop do
     # Display that the contact could not be found to the user
   when "exit"
     # Exit from the program
-    break
+    puts "Are you sure?"
+    yes_no = gets.chomp.downcase
+    if yes_no == 'yes'
+      puts "Ok, see you later alligator"
+      break
+    else
+      puts "Ok, my bad.\n"
+    end
   end
 end
