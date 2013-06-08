@@ -51,6 +51,9 @@ loop do
       email: email,
       notes: notes
     }
+
+    puts db 
+    puts contact
     db.add(contact)
     puts contact[:firstname] + " " + contact[:lastname] + " was successfully added."
 

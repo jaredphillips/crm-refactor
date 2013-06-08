@@ -3,7 +3,7 @@ class Database
   attr_accessor :contacts_array
 
   def initialize
-    @contacts_array = Array.new
+    @contacts_array = []
   end
 
   def add(contact)
@@ -25,7 +25,7 @@ class Database
    @contacts_array.each do |array_element|
       array_element.each do |key, value|
         if value.to_s == attribute
-          puts "#{key}: #{value}"
+          puts @contacts_array
         end
       end
     end
