@@ -103,11 +103,11 @@ class Runner
     when "display contact"
       puts "Search by id, first name, last name, or email address."
       puts
-      search_term = gets.chomp
+      search_from_user = gets.chomp
       puts
       puts "Here you go!"
       puts
-      contact = db.better_search(search_term)
+      contact = db.better_search(search_from_user)
       contact.nicely_displayed
       puts "\e[H\e[2J"
 
@@ -121,7 +121,7 @@ class Runner
       attribute = gets.chomp
       puts
       db.display_info_by_attribute(attribute)
-      puts "\e[H\e[2J"
+      
 
     when "delete"
       puts "Search by id, first name, last name, or email address."

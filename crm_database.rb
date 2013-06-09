@@ -4,11 +4,11 @@ require_relative "crm_contact"
 class Database
 
   def initialize
-    @contacts_array = Array.new
+    @contacts_array = []
   end
 
   def add(contact)
-    @contacts_array << Contact.new(contact)
+    @contacts_array.push Contact.new(contact)
   end
 
   def modify_contact(contact, attribute, new_value)
@@ -34,14 +34,11 @@ class Database
   end
 
 
-  def better_search(search_term) 
+  def better_search(search) 
     @contacts_array.each do |contact|
-      if (contact.id         == search_term || 
-          contact.firstname  == search_term || 
-          contact.lastname   == search_term || 
-          contact.email      == search_term)
-      return contact
+      if (contact.id == search || contact.firstname  == search || contact.lastname == search || contact.email == search)
+        return contact
       end
     end
-    end
+  end
 end
