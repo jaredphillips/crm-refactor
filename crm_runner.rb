@@ -12,13 +12,13 @@ class Runner
     puts "-------------------------------------------------"
     puts
     puts "What would you like to do?\n\n"
-    puts "- add"
-    puts "- modify"
-    puts "- display all"
-    puts "- display contact"
-    puts "- display attribute"
-    puts "- delete"
-    puts "- exit"
+    puts "- add               - Press 1"
+    puts "- modify            - Press 2"
+    puts "- display all       - Press 3"
+    puts "- find a contact    - Press 4"
+    puts "- display attribute - Press 5"
+    puts "- delete            - Press 6"
+    puts "- exit              - Press 7"
     puts
 
     print "=> " 
@@ -27,7 +27,7 @@ class Runner
 
     case input
 
-    when "add"
+    when "1" # add
       id += 1
 
       print "First Name =>     "
@@ -57,7 +57,7 @@ class Runner
       puts "Success!"
       puts "\e[H\e[2J"
 
-    when "modify"
+    when "2" # modify
       puts "Which person are fixing?"
       puts
       puts "You can search by..." 
@@ -67,9 +67,9 @@ class Runner
       puts "...or email address"
       puts
       print "Choose =>         " 
-      search_term = gets.chomp
+      search_from_user = gets.chomp
       puts
-      contact = db.better_search(search_term)
+      contact = db.better_search(search_from_user)
       contact.nicely_displayed
       puts
       puts "Is this the person?"
@@ -97,10 +97,10 @@ class Runner
         puts "\e[H\e[2J"
       end
 
-    when "display all"
+    when "3" # display all
       db.display_all_contacts
 
-    when "display contact"
+    when "4" # find a contact
       puts "Search by id, first name, last name, or email address."
       puts
       search_from_user = gets.chomp
@@ -111,7 +111,7 @@ class Runner
       contact.nicely_displayed
       puts "\e[H\e[2J"
 
-    when "display attribute"
+    when "5" # display all the attributes for contact
       puts "Display each contact's..."
       puts "- firstname"
       puts "- lastname"
@@ -123,7 +123,7 @@ class Runner
       db.display_info_by_attribute(attribute)
       
 
-    when "delete"
+    when "6" # delete a contact
       puts "Search by id, first name, last name, or email address."
       puts
       search_term = gets.chomp
@@ -139,7 +139,7 @@ class Runner
       end     
       puts "\e[H\e[2J"  
 
-    when "exit"
+    when "7" # exit program
       puts "Ok, See you later."
       puts "\e[H\e[2J"
       break
