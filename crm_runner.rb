@@ -1,7 +1,7 @@
 require_relative "crm_database"
 db = Database.new
 id = 1000
-  TYPE_SPACE = "_"*10 + "\b"*10
+  TYPE_SPACE = print "_"*10 + "\b"*10
   # Display the crm greeting
   puts " --------------------------------------------------------"
   puts " Welcome to the Jared's Customer Relationship Manager\n"
@@ -28,18 +28,13 @@ loop do
     id += 1
     puts "First name:"
     print TYPE_SPACE
-
     firstname = gets.chomp.downcase
-
     puts "Last name: "
-    print TYPE_SPACE
-
+    print TYPE_SPACE    
     lastname = gets.chomp.downcase
     puts "Email: "
     print TYPE_SPACE
     email = gets.chomp.downcase
-
-
     puts "Notes: "
     print TYPE_SPACE
     notes = gets.chomp.downcase
@@ -51,17 +46,29 @@ loop do
       email: email,
       notes: notes
     }
-
-    puts db 
-    puts contact
+    
     db.add(contact)
-    puts contact[:firstname] + " " + contact[:lastname] + " was successfully added."
+    puts "Contact was successfully added to database"
+    new_contact = Contact.new(contact).nicely_displayed
+
+
 
   when "modify"
     # Prompt the user to select an attribute
     # Confirm that they have selected the correct attribute
     # If 'yes', prompt them to type the new value for the attribute
     # Display that the contact was successfully updated to the user 
+    puts "What person do you want to update?"
+    puts "Find a contact by first name, last name, email, notes or id number"
+    search = gets.chomp
+    db.display_particular_contact(search)
+    puts "Confirm that s"
+    if 'yes'
+      puts ""
+
+
+
+
   when "display all"
     # Display all of the contacts in the database to the user
     db.display_all_contacts
@@ -73,6 +80,7 @@ loop do
     puts 
     search = gets.chomp.downcase
     db.display_particular_contact(search)
+    db.display_contact
 
   when "display attribute"
     # Prompt the user to search the database by one of the five attributes (E.g. "ID")

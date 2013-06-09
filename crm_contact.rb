@@ -1,15 +1,21 @@
 class Contact
   attr_accessor :id, :firstname, :lastname, :email, :notes
 
-  def initialize(id, firstname, lastname, email, notes)
-    @id = id
-    @firstname = firstname
-    @lastname  = lastname
-    @email     = email
-    @notes     = notes
+  def initialize(arguments)
+    @id        = arguments[:id]
+    @firstname = arguments[:firstname]
+    @lastname  = arguments[:lastname]
+    @email     = arguments[:email]
+    @notes     = arguments[:notes]
   end
 
-  def display_contact
-    "C"
+  def nicely_displayed
+    puts 
+    puts "Contact: \n"
+    puts "ID #:       #{id}"
+    puts "First Name: #{firstname}"
+    puts "Last Name:  #{lastname}"
+    puts "Email:      #{email}"
+    puts "Notes:      #{notes}" 
   end
 end

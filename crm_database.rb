@@ -10,14 +10,13 @@ class Database
     @contacts_array.push contact
   end
 
-  def modify_contact(selection, attribute, modification)
+  def modify_contact(selection, attribute, new_value)
+    # contact.send("#{attribute}=", new_value)
   end
 
   def display_all_contacts
-    @contacts_array.each do |array_element|
-      array_element.each do |key, value|
-        puts "#{key}: #{value}"
-      end
+    @contacts_array.each do |contact|
+       Contact.new(contact).nicely_displayed
     end
   end
 
@@ -25,7 +24,7 @@ class Database
    @contacts_array.each do |contact|
       contact.each do |label, attribute|
         if attribute == search
-           puts contact
+          contact.display_contact
         end
       end
     end
