@@ -1,108 +1,156 @@
-require_relative "crm_database"
-db = Database.new
-id = 1000
-  TYPE_SPACE = print "_"*10 + "\b"*10
-  # Display the crm greeting
-  puts " --------------------------------------------------------"
-  puts " Welcome to the Jared's Customer Relationship Manager\n"
-  puts " --------------------------------------------------------"
 
+require_relative 'crm_database'
 
-loop do
-  # Display the various options
-  puts
-  puts " What would you like to do?"
-  puts " add"
-  puts " modify"
-  puts " display all"
-  puts " display contact"
-  puts " display attribute"
-  puts " delete"
-  puts " exit program\n\n"
-  input = gets.chomp
-  
-  case input
-  when "add"
-    # Get the various contact attributes from the user and store them to variables
-    # Insert those variables in a new contact and add them to the database
-    id += 1
-    puts "First name:"
-    print TYPE_SPACE
-    firstname = gets.chomp.downcase
-    puts "Last name: "
-    print TYPE_SPACE    
-    lastname = gets.chomp.downcase
-    puts "Email: "
-    print TYPE_SPACE
-    email = gets.chomp.downcase
-    puts "Notes: "
-    print TYPE_SPACE
-    notes = gets.chomp.downcase
-
-    contact = {
-      id: id,
-      firstname: firstname,
-      lastname: lastname,
-      email: email,
-      notes: notes
-    }
+class Runner
+  id = 100
+  db = Database.new
+  puts "\e[H\e[2J"
+  loop do
     
-    db.add(contact)
-    puts "Contact was successfully added to database"
-    new_contact = Contact.new(contact).nicely_displayed
+    puts "-------------------------------------------------"
+    puts "Welcome to Jared's Customer Relationship Database"
+    puts "-------------------------------------------------"
+    puts
+    puts "What would you like to do?\n\n"
+    puts "- add"
+    puts "- modify"
+    puts "- display all"
+    puts "- display contact"
+    puts "- display attribute"
+    puts "- delete"
+    puts "- exit"
+    puts
 
+    print "=> " 
+    input = gets.chomp.downcase
+    puts
 
+    case input
 
-  when "modify"
-    # Prompt the user to select an attribute
-    # Confirm that they have selected the correct attribute
-    # If 'yes', prompt them to type the new value for the attribute
-    # Display that the contact was successfully updated to the user 
-    puts "What person do you want to update?"
-    puts "Find a contact by first name, last name, email, notes or id number"
-    search = gets.chomp
-    db.display_particular_contact(search)
-    puts "Confirm that s"
-    if 'yes'
-      puts ""
+    when "add"
+      id += 1
 
+      print "First Name =>     "
+      firstname = gets.chomp
 
+      print "Last Name =>      "
+      lastname = gets.chomp
 
+      print "Email Address =>  "
+      email = gets.chomp
 
-  when "display all"
-    # Display all of the contacts in the database to the user
-    db.display_all_contacts
+      print "Notes =>          "
+      notes = gets.chomp
+      puts
 
-  when "display contact"
-    # Prompt the user to select a contact by a specific contact attribute (E.g. Khurram)
-    # Store the input in a variable and display the corresponding contact
-    puts "What contact would do you want to search by?"
-    puts 
-    search = gets.chomp.downcase
-    db.display_particular_contact(search)
-    db.display_contact
+      contact = {
+        id: id,
+        firstname: firstname,
+        lastname: lastname,
+        email: email,
+        notes: notes
+      }
 
-  when "display attribute"
-    # Prompt the user to search the database by one of the five attributes (E.g. "ID")
-    # Display all of the the contacts by that attribute
+      db.add(contact)
+      
 
+      puts "Success!"
+      puts "\e[H\e[2J"
 
-  when "delete"
-    # Prompt the user to select a contact by a specific contact attribute (E.g. Khurram)
-    # Store the input in a variable and display a prompt to confirm "yes" or "no"
-    # If 'yes', prompt them to type the new value for the attribute
-    # Display that the contact was successfully deleted to the user
-    # If 'no', prompt them to type the new value for the attribute
-    # Display that the contact could not be found to the user
-  when "exit"
-    # Exit from the program
-    puts "Are you sure?"
-    yes_no = gets.chomp.downcase
-    if yes_no == 'yes'
-      puts "Ok, see you later alligator"
+    when "modify"
+      puts "Which person are fixing?"
+      puts
+      puts "You can search by..." 
+      puts "...id,"
+      puts "...first name,"
+      puts "...last name,"
+      puts "...or email address"
+      puts
+      print "Choose =>         " 
+      search_term = gets.chomp
+      puts
+      contact = db.better_search(search_term)
+      contact.nicely_displayed
+      puts
+      puts "Is this the person?"
+      print "Y/N: "
+      input = gets.chomp.downcase
+      puts
+      if input == "y"
+        puts "Which attribute would you like to change?"
+        puts "- firstname"
+        puts "- lastname"
+        puts "- email"
+        puts "- notes"
+        puts
+        print "\u21FE "
+        attribute = gets.chomp
+        puts
+        puts "What should the new #{attribute} be?"
+        print "\u21FE "
+        new_value = gets.chomp
+        db.modify_contact(contact, attribute, new_value)
+        puts
+        contact.nicely_displayed
+        puts
+        puts "Got it!"
+        puts "\e[H\e[2J"
+      end
+
+    when "display all"
+      db.display_all_contacts
+
+    when "display contact"
+      puts "Search by id, first name, last name, or email address."
+      puts
+      search_term = gets.chomp
+      puts
+      puts "Here you go!"
+      puts
+      contact = db.better_search(search_term)
+      contact.nicely_displayed
+      puts "\e[H\e[2J"
+
+    when "display attribute"
+      puts "Display each contact's..."
+      puts "- firstname"
+      puts "- lastname"
+      puts "- email"
+      puts "- id"
+      puts
+      attribute = gets.chomp
+      puts
+      db.display_info_by_attribute(attribute)
+      puts "\e[H\e[2J"
+
+    when "delete"
+      puts "Search by id, first name, last name, or email address."
+      puts
+      search_term = gets.chomp
+      puts
+      contact = db.better_search(search_term)
+      contact.nicely_displayed
+      puts "Are you sure you want to delete this contact? (y/n)"
+      puts
+      input = gets.chomp.downcase
+      if input == "y"
+        db.delete_contact(contact)
+        puts "Got it!"
+      end     
+      puts "\e[H\e[2J"  
+
+    when "exit"
+      puts "Ok, See you later."
+      puts "\e[H\e[2J"
       break
+
     else
-      puts "Ok, my bad.\n"
+      puts "\e[H\e[2J"
+      puts "I'm sorry. I didn't catch that..."
+      next
+
     end
   end
 end
+
+Runner.new

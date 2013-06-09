@@ -1,3 +1,4 @@
+
 class Contact
   attr_accessor :id, :firstname, :lastname, :email, :notes
 
@@ -12,10 +13,9 @@ class Contact
   def nicely_displayed
     puts 
     puts "Contact: \n"
-    puts "ID #:       #{id}"
-    puts "First Name: #{firstname}"
-    puts "Last Name:  #{lastname}"
-    puts "Email:      #{email}"
-    puts "Notes:      #{notes}" 
+    puts "ID #:  #{@id}"
+    puts "Name:  #{@firstname} #{@lastname}"
+    puts "Email: #{@email}"
+    puts "Notes: #{@notes}" 
   end
 end

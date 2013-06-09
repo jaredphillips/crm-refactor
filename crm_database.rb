@@ -1,38 +1,47 @@
+
 require_relative "crm_contact"
+
 class Database
-  attr_accessor :contacts_array
 
   def initialize
-    @contacts_array = []
+    @contacts_array = Array.new
   end
 
   def add(contact)
-    @contacts_array.push contact
+    @contacts_array << Contact.new(contact)
   end
 
-  def modify_contact(selection, attribute, new_value)
-    # contact.send("#{attribute}=", new_value)
+  def modify_contact(contact, attribute, new_value)
+    #this method idea I got from Alec
+    contact.send("#{attribute}=", new_value)
   end
 
   def display_all_contacts
     @contacts_array.each do |contact|
-       Contact.new(contact).nicely_displayed
+      contact.nicely_displayed
     end
   end
 
-  def display_particular_contact(search)
-   @contacts_array.each do |contact|
-      contact.each do |label, attribute|
-        if attribute == search
-          contact.display_contact
-        end
+  def display_info_by_attribute(attribute)
+    @contacts_array.each do |contact|
+      puts contact.send(attribute)
+    end
+  end
+
+  def delete_contact(contact)
+    contact_index = @contacts_array.index(contact)
+    @contacts_array.delete_at(contact_index)
+  end
+
+
+  def better_search(search_term) 
+    @contacts_array.each do |contact|
+      if (contact.id         == search_term || 
+          contact.firstname  == search_term || 
+          contact.lastname   == search_term || 
+          contact.email      == search_term)
+      return contact
       end
     end
-  end
-
-  def display_info_by_attribute(arg)
-  end
-
-  def delete_contact(attribute)
-  end
+    end
 end
