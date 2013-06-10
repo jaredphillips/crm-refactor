@@ -68,10 +68,9 @@ class Runner
       puts
       print "Choose =>         " 
       search_from_user = gets.chomp
-      puts
       contact = db.better_search(search_from_user)
-      contact.nicely_displayed
-      puts
+  binding.pry
+      puts contact.nicely_displayed    
       puts "Is this the person?"
       print "Y/N: "
       input = gets.chomp.downcase

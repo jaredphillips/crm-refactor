@@ -34,9 +34,9 @@ class Database
   end
 
 
-  def better_search(search) 
+  def better_search(search)
     @contacts_array.each do |contact|
-      if (contact.id == search || contact.firstname  == search || contact.lastname == search || contact.email == search)
+      if (contact.id == search) || (contact.firstname == search) || (contact.lastname == search) || (contact.email == search)
         return contact
       end
     end
