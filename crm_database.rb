@@ -12,8 +12,9 @@ class Database
   end
 
   def modify_contact(contact, attribute, new_value)
-    #this method idea I got from Alec
+
     contact.send("#{attribute}=", new_value)
+    return contact
   end
 
   def display_all_contacts
@@ -35,8 +36,18 @@ class Database
 
 
   def better_search(search)
+    # I think Array#uniq method would be a good refactor
     @contacts_array.each do |contact|
-      if (contact.id == search) || (contact.firstname == search) || (contact.lastname == search) || (contact.email == search)
+      case
+      when search == contact.id
+        return contact
+      when search == contact.firstname
+        return contact
+      when search == contact.lastname
+        return contact
+      when search == contact.email
+        return contact
+      when search == contact.notes
         return contact
       end
     end

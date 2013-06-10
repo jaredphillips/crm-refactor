@@ -67,11 +67,11 @@ class Runner
       puts "...or email address"
       puts
       print "Choose =>         " 
-      search_from_user = gets.chomp
-      contact = db.better_search(search_from_user)
-  binding.pry
-      puts contact.nicely_displayed    
-      puts "Is this the person?"
+      search = gets.chomp
+      contact = db.better_search(search) 
+      contact.inspect
+
+      puts "Is this the person you want to edit?"
       print "Y/N: "
       input = gets.chomp.downcase
       puts
@@ -82,16 +82,15 @@ class Runner
         puts "- email"
         puts "- notes"
         puts
-        print "\u21FE "
+        print "=> "
         attribute = gets.chomp
+
         puts
-        puts "What should the new #{attribute} be?"
+        puts "What should the new " + attribute + " be?"
         print "\u21FE "
         new_value = gets.chomp
         db.modify_contact(contact, attribute, new_value)
-        puts
-        contact.nicely_displayed
-        puts
+
         puts "Got it!"
         puts "\e[H\e[2J"
       end
